@@ -95,7 +95,7 @@ typical ``cli-config.php`` file looks as follows:
 .. code-block:: php
 
     <?php
-    require_once __DIR__ . '/../../lib/Doctrine/Common/ClassLoader.php';
+    require_once __DIR__.'/../../lib/Doctrine/Common/ClassLoader.php';
     
     $classLoader = new \Doctrine\Common\ClassLoader('Entities', __DIR__);
     $classLoader->register();
@@ -103,14 +103,14 @@ typical ``cli-config.php`` file looks as follows:
     $classLoader = new \Doctrine\Common\ClassLoader('Proxies', __DIR__);
     $classLoader->register();
     
-    $config = new \Doctrine\ORM\Configuration();
+    $config = \Doctrine\ORM\Tools\Setup::createAnnotationMetadataConfiguration(array(__DIR__.'/Entities'));
     $config->setMetadataCacheImpl(new \Doctrine\Common\Cache\ArrayCache);
-    $config->setProxyDir(__DIR__ . '/Proxies');
+    $config->setProxyDir(__DIR__.'/Proxies');
     $config->setProxyNamespace('Proxies');
     
     $connectionOptions = array(
         'driver' => 'pdo_sqlite',
-        'path' => 'database.sqlite'
+        'path'   => __DIR__.'/database.sqlite'
     );
     
     $em = \Doctrine\ORM\EntityManager::create($connectionOptions, $config);
